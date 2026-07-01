@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9DF8702D-962C-48DD-813E-5A9F463DEBCA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SistemaDeGestion2026</RootNamespace>
+    <AssemblyName>SistemaDeGestion2026</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FRMPersona_Lista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMPersona_Lista.Designer.cs">
+      <DependentUpon>FRMPersona_Lista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMPersona_Registrar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMPersona_Registrar.Designer.cs">
+      <DependentUpon>FRMPersona_Registrar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMPrincipal.Designer.cs">
+      <DependentUpon>FRMPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMSplash.Designer.cs">
+      <DependentUpon>FRMSplash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMUsuario_Lista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMUsuario_Lista.Designer.cs">
+      <DependentUpon>FRMUsuario_Lista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMUsuario_Registrar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMUsuario_Registrar.Designer.cs">
+      <DependentUpon>FRMUsuario_Registrar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetodosGenerales.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FRMPersona_Lista.resx">
+      <DependentUpon>FRMPersona_Lista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMPersona_Registrar.resx">
+      <DependentUpon>FRMPersona_Registrar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMPrincipal.resx">
+      <DependentUpon>FRMPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMSplash.resx">
+      <DependentUpon>FRMSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMUsuario_Lista.resx">
+      <DependentUpon>FRMUsuario_Lista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMUsuario_Registrar.resx">
+      <DependentUpon>FRMUsuario_Registrar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BannerTiendaDeRopa.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BannerTiendaDeRopa1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\banner_proyecto_ropa_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapaRN\CapaRN.csproj">
+      <Project>{79c6b7bf-ccdb-4e46-b6f2-fba5a4e23fb3}</Project>
+      <Name>CapaRN</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_persona_nuevo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_persona_modificar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_persona_reporte.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_buscar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_guardar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_limpiar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_salir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_camara_tomar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_camara_Limpiar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_camara_abrir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_persona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NoImagen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_usuario_nuevo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_usuario_modificar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_usuario_reporte.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_agregar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxDPFPCtlXLib">
+      <Guid>{B49E66FF-6927-4378-9685-937F14679ADD}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="DPFPCtlXLib">
+      <Guid>{B49E66FF-6927-4378-9685-937F14679ADD}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_usuario_cambiar_password.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

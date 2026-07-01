@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="CapaAD/CapaAD.csproj" Id="0e081238-4102-4f7e-be3e-7af50c49b1b8" />
+  <Project Path="CapaRN/CapaRN.csproj" Id="79c6b7bf-ccdb-4e46-b6f2-fba5a4e23fb3" />
+  <Project Path="SistemaDeGestion2026/SistemaDeGestion2026.csproj" Id="9df8702d-962c-48dd-813e-5a9f463debca" />
+</Solution>
