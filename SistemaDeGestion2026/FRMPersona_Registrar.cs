@@ -1,32 +1,34 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
 using CapaRN;
-using DevComponents.DotNetBar.Controls;
-using SistemaDeGestion2026.Properties;
+using Eithan_System.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SistemaDeGestion2026
+namespace Eithan_System
 {
     public partial class FRMPersona_Registrar : DevComponents.DotNetBar.Office2007Form
     {
+
         #region Variables
         private aperson persona = new aperson();
         private xnumcor correlativo = new xnumcor();
         public bool modificar = false;
         public String codPerMod = "";
         public bool actualizar = false;
-        //Variables para la camara
-        private FilterInfoCollection CaptureDevice; // list of webcam
+
+        private FilterInfoCollection CaptureDevice;
         private VideoCaptureDevice FinalFrame;
         private bool TieneFoto = false;
+       
         #endregion
 
         #region Constructor
@@ -38,113 +40,122 @@ namespace SistemaDeGestion2026
         #endregion
 
         #region Métodos
-
         private bool VerificarIntegridad()
         {
             bool respuesta = true;
-            persona.capsnumcid = TXTCI.Text;
+            aperson persona2 = new aperson();
+            persona2.capsnumcid = TXT_CI.Text;
 
-            if (TXTCI.Text.Replace(" ", "") == "")
+            
+
+            if (TXT_CI.Text.Replace(" ", "") == "")
             {
                 MessageBox.Show("Introduzca el CI de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTCI.Focus();
+                TXT_CI.Focus();
                 respuesta = false;
             }
-            else if (persona.ObtenerDatosCI()&&!modificar)
-            {
+            else if (persona2.ObtenerDatosCI(modificar,persona.capsnumcid)) {
                 MessageBox.Show("Ya existe una persona con ese CI", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTCI.Focus();
+                TXT_CI.Focus();
                 respuesta = false;
             }
-            else if (DTINacimiento.Value > DateTime.Now)
+            else if (DTI_Nacimiento.IsEmpty)
             {
-                MessageBox.Show("Introduzca FECHA DE NACIMIENTO válida de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                DTINacimiento.Focus();
+                MessageBox.Show("La FECHA DE NACIMIENTO no puede ser vacio", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DTI_Nacimiento.Focus();
                 respuesta = false;
             }
-            else if ((TXTApellidoPaterno.Text.Replace(" ", "") == "") &&
-                     (TXTApellidoMaterno.Text.Replace(" ", "") == ""))
+            else if (DTI_Nacimiento.Value > DateTime.Now)
             {
-                MessageBox.Show("Introduzca uno de los APELLIDOS de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTApellidoPaterno.Focus();
+                MessageBox.Show("La FECHA DE NACIMIENTO no puede ser mayor a la fecha actual", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DTI_Nacimiento.Focus();
                 respuesta = false;
             }
-            else if (TXTNombres.Text.Replace(" ", "") == "")
+            else if ((TXT_ApellidoMaterno.Text.Replace(" ", "") == "") && (TXT_ApellidoPaterno.Text.Replace(" ", "") == ""))
+            {
+                MessageBox.Show("La persona debe tener al menos un APELLIDO", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TXT_ApellidoPaterno.Focus();
+                respuesta = false;
+
+            }
+            else if (TXT_Nombres.Text.Replace(" ", "") == "")
             {
                 MessageBox.Show("Introduzca los NOMBRES de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTNombres.Focus();
+                TXT_Nombres.Focus();
                 respuesta = false;
             }
-            else if (TXTCelular.Text.Replace(" ", "") == "")
+            else if (TXT_Celular.Text.Replace(" ", "") == "")
             {
-                MessageBox.Show("Introduzca el CELULAR de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTCelular.Focus();
+                MessageBox.Show("Introduzca el NUMERO DE CELULAR de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TXT_Celular.Focus();
                 respuesta = false;
             }
-            else if (TXTCorreoElectronico.Text.Replace(" ", "") == "")
+            else if (TXT_Correo.Text.Replace(" ", "") == "")
             {
-                MessageBox.Show("Introduzca un CORREO VÁLIDO de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTCorreoElectronico.Focus();
+                MessageBox.Show("Introduzca un CORREO ELECTRONICO de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TXT_Correo.Focus();
                 respuesta = false;
             }
-            else if (!xgeneral.emailIsValid(TXTCorreoElectronico.Text))
+            else if (!xgeneral.emailsValid(TXT_Correo.Text))
             {
-                MessageBox.Show("Introduzca un CORREO VÁLIDO de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTCorreoElectronico.Focus();
+                MessageBox.Show("Introduzca un CORREO ELECTRONICO VALIDO de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TXT_Correo.Focus();
                 respuesta = false;
             }
-            else if (TXTDireccion.Text.Replace(" ", "") == "")
+            else if (TXT_Direccion.Text.Replace(" ", "") == "")
             {
                 MessageBox.Show("Introduzca la DIRECCIÓN de la persona", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TXTDireccion.Focus();
+                TXT_Direccion.Focus();
                 respuesta = false;
             }
-
-
             return respuesta;
         }
-
         private void LimpiarCasillas()
         {
-            SWBEstado.Value = true;
-            TXTCI.Text = "";      
+            SWB_Estado.Value = true;
+            TXT_CI.Text = "";
         }
 
         private void JalarDatos()
         {
             persona.papscodper = this.codPerMod;
             persona.ObtenerDatos();
-            SWBEstado.Value = persona.capsestper;
-            TXTCI.Text = persona.capsnumcid;            
-            SWBSexo.Value = persona.capssexper;            
-            DTINacimiento.Value = persona.capsfecnac;
-            TXTApellidoPaterno.Text = persona.capsapepat;
-            TXTApellidoMaterno.Text = persona.capsapemat;
-            TXTNombres.Text = persona.capsnomper;
-            TXTCelular.Text = persona.capsnumcel;
-            TXTCorreoElectronico.Text = persona.capscorele;
-            TXTDireccion.Text = persona.capsdirper;
+
+            SWB_Estado.Value = persona.capsestper;
+            TXT_CI.Text = persona.capsnumcid;
+            SWB_Sexo.Value = persona.capssexper;
+            DTI_Nacimiento.Value = persona.capsfecnac;
+            TXT_ApellidoPaterno.Text = persona.capsapepat;
+            TXT_ApellidoMaterno.Text = persona.capsapemat;
+            TXT_Nombres.Text = persona.capsnomper;
+            TXT_Celular.Text = persona.capsnumcel;
+            TXT_Correo.Text = persona.capscorele;
+            TXT_Direccion.Text = persona.capsdirper;
+
+
+
             if (persona.capsfotper == "")
             {
                 TieneFoto = false;
-                PCBFotografia.Image = Resources.NoImagen;
+                PCB_Fotografía.Image = Resources.NoImagen;
             }
             else
             {
                 TieneFoto = true;
-                PCBFotografia.Image = MetodosGenerales.ConvertBase64StringToImage(persona.capsfotper);
+                PCB_Fotografía.Image = MetodosGenerales.ConvertBase64StringToImage(persona.capsfotper);
             }
-        }
 
+        }
         #endregion
 
         #region Eventos
-            
-        private void BTNSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
+        private void BTN_Salir_Click(object sender, EventArgs e)
+        {
+            
+            this.Close();
+
+        }
         private void FRMPersona_Registrar_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("¿Está seguro que desea cerrar el formulario?",
@@ -154,16 +165,19 @@ namespace SistemaDeGestion2026
                                 MessageBoxDefaultButton.Button2) == DialogResult.No)
             {
                 e.Cancel = true;
-            }            
+            }
             else
             {
                 ApagarCamara();
             }
+
         }
 
-        private void TXTCI_Enter(object sender, EventArgs e)
+        
+
+        private void TXT_CI_Enter(object sender, EventArgs e)
         {
-            TextBoxX a = (TextBoxX)sender;
+            TextBox a = (TextBox)sender;
             a.SelectAll();
         }
 
@@ -173,116 +187,119 @@ namespace SistemaDeGestion2026
             if (this.modificar)
             {
                 JalarDatos();
-                BTNGrabar.Text = "&Modificar";
+                BTN_Grabar.Text = "&Modificar";
                 this.Text = "Modificar Persona";
-                GPPanelPrincipal.Text = "Modificar Persona";
-                TXTCI.Focus();
+                GP_Panel_Persona.Text = "Modificar Persona";
+                TXT_CI.Focus();
             }
             else
             {
                 LimpiarCasillas();
-                BTNGrabar.Text = "&Guardar";
+                BTN_Grabar.Text = "&Guardar";
                 this.Text = "Registrar Persona";
-                GPPanelPrincipal.Text = "Registrar Persona";
-                TXTCI.Focus();
+                GP_Panel_Persona.Text = "Registrar Persona";
+                TXT_CI.Focus();
             }
         }
 
-        private void TXTCelular_KeyDown(object sender, KeyEventArgs e)
+        private void TXT_Celular_KeyDown(object sender, KeyEventArgs e)
         {
-            bool teclaValida = false;
-
+            bool tecla_valida = false;
+            //Identificar si es una tecla válida
             if ((e.KeyCode >= Keys.NumPad0) && (e.KeyCode <= Keys.NumPad9))
-                teclaValida = true;
+                tecla_valida = true;
             else if ((e.KeyCode >= Keys.D0) && (e.KeyCode <= Keys.D9) && !e.Shift)
-                teclaValida = true;
-            else if 
-                ((e.KeyCode == Keys.Back) ||
+                tecla_valida = true;
+            else if ((e.KeyCode == Keys.Back) ||
                 (e.KeyCode == Keys.Delete) ||
                 (e.KeyCode == Keys.Left) ||
-                (e.KeyCode == Keys.Right))
-                teclaValida = true;
-
-            if (!teclaValida)
+                (e.KeyCode == Keys.Right) )
+                tecla_valida = true;
+            if (!tecla_valida)
             {
                 e.SuppressKeyPress = true;
             }
         }
 
-        private void TXTCI_KeyDown(object sender, KeyEventArgs e)
+        private void TXT_CI_KeyDown(object sender, KeyEventArgs e)
         {
-            bool teclaValida = false;
-
+            bool tecla_valida = false;
+            //Identificar si es una tecla válida
             if ((e.KeyCode >= Keys.NumPad0) && (e.KeyCode <= Keys.NumPad9))
-                teclaValida = true;
+                tecla_valida = true;
             else if ((e.KeyCode >= Keys.D0) && (e.KeyCode <= Keys.D9) && !e.Shift)
-                teclaValida = true;
-            else if ((e.KeyCode >= Keys.A) && (e.KeyCode <= Keys.Z) && (!e.Alt))
-                teclaValida = true;
+                tecla_valida = true;
             else if ((e.KeyCode == Keys.Subtract) ||
                 (e.KeyCode == Keys.Back) ||
                 (e.KeyCode == Keys.Delete) ||
                 (e.KeyCode == Keys.Left) ||
                 (e.KeyCode == Keys.Right) ||
                 ((e.KeyCode == Keys.OemMinus) && !e.Shift))
-                teclaValida = true;
-
-            if (!teclaValida)
+                tecla_valida = true;
+            if (!tecla_valida)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
+        private void TXT_Direccion_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool tecla_valida = true;
+            if (!tecla_valida)
             {
                 e.SuppressKeyPress = true;
             }
         }
 
-        private void TXTApellidoPaterno_KeyDown(object sender, KeyEventArgs e)
+        private void TXT_Correo_KeyDown(object sender, KeyEventArgs e)
         {
-            bool teclaValida = false;
+            bool tecla_valida = false;
+            if (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z)
+                tecla_valida = true;
+            else if ((e.KeyCode >= Keys.NumPad0) && (e.KeyCode <= Keys.NumPad9))
+                tecla_valida = true;
+            else if ((e.KeyCode >= Keys.D0) && (e.KeyCode <= Keys.D9) && (!e.Shift || (e.Shift && e.KeyCode == Keys.D2)))
+                tecla_valida = true;
+            else if ((e.KeyCode == Keys.Back) ||
+                     (e.KeyCode == Keys.Delete) ||
+                     (e.KeyCode == Keys.Left) ||
+                     (e.KeyCode == Keys.Right) ||
+                     (e.KeyCode == Keys.Add) ||
+                     (e.KeyCode == Keys.OemPeriod) ||
+                     (e.KeyCode == Keys.Decimal) ||
+                     (e.KeyCode == Keys.OemMinus) ||
+                     (e.KeyCode == Keys.Subtract) )
+            {
+                tecla_valida = true;
+            }
+            else if (e.Control && e.Alt && (e.KeyCode == Keys.Q || e.KeyCode == Keys.D2))
+                tecla_valida = true;
+            if (!tecla_valida)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
 
+        private void TXT_Nombres_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool tecla_valida = false;
+            //Identificar si es una tecla válida
             if ((e.KeyCode >= Keys.A) && (e.KeyCode <= Keys.Z) && (!e.Alt))
-                teclaValida = true;
-            else if ((e.KeyCode == Keys.Space) ||
-                (e.KeyCode == Keys.Back) ||
-                (e.KeyCode == Keys.Delete) ||
-                (e.KeyCode == Keys.Left) ||
-                (e.KeyCode == Keys.Right) ||
-                ((e.KeyCode == Keys.Oem4) && !e.Shift))
-                teclaValida = true;            
-            if (!teclaValida)
-            {
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void TXTCorreoElectronico_KeyDown(object sender, KeyEventArgs e)
-        {
-            bool teclaValida = false;
-
-            if ((e.KeyCode >= Keys.NumPad0) && (e.KeyCode <= Keys.NumPad9))
-                teclaValida = true;
-            else if ((e.KeyCode >= Keys.D0) && (e.KeyCode <= Keys.D9) && !e.Shift)
-                teclaValida = true;
-            else if ((e.KeyCode >= Keys.A) && (e.KeyCode <= Keys.Z) && (!e.Alt))
-                teclaValida = true;
+                tecla_valida = true;
             else if ((e.KeyCode == Keys.Subtract) ||
                 (e.KeyCode == Keys.Back) ||
                 (e.KeyCode == Keys.Delete) ||
                 (e.KeyCode == Keys.Left) ||
                 (e.KeyCode == Keys.Right) ||
-                (e.KeyCode == Keys.OemPeriod) ||
-                ((e.KeyCode == Keys.OemMinus)&&e.Shift) ||
-                (e.KeyCode == Keys.Decimal) ||
-                ((e.KeyCode == Keys.Q)&&e.Alt) ||
-                ((e.KeyCode == Keys.Oemplus) && !e.Shift&&!e.Alt) ||
-                (e.KeyCode == Keys.Add) ||
-                ((e.KeyCode == Keys.OemMinus) && !e.Shift))
-                teclaValida = true;
-            
-            if (!teclaValida)
+                ((e.KeyCode == Keys.OemMinus) && !e.Shift) ||
+                ((e.KeyCode == Keys.Oem4) && !e.Shift))
+                tecla_valida = true;
+            if (!tecla_valida)
             {
                 e.SuppressKeyPress = true;
             }
         }
 
-        private void BTNGrabar_Click(object sender, EventArgs e)
+        private void BTN_Grabar_Click(object sender, EventArgs e)
         {
             if (VerificarIntegridad())
             {
@@ -294,33 +311,39 @@ namespace SistemaDeGestion2026
                     correlativo.pxnctipcor = "aperson";
                     if (correlativo.ObtenerSiguiente())
                     {
-                        persona.papscodper = correlativo.pxnctipcor + "-" +                            
-                                             correlativo.cxncnumcor.ToString("D12");
+                        persona.papscodper = correlativo.pxnctipcor+"-"+correlativo.cxncnumcor.ToString("D12");
                     }
                 }
                 else
                 {
                     persona.papscodper = this.codPerMod;
                 }
-                persona.capsestper = SWBEstado.Value;
-                persona.capssexper = SWBSexo.Value;
-                persona.capsnumcid = TXTCI.Text;
-                persona.capsfecnac = DTINacimiento.Value;
-                persona.capsapepat = TXTApellidoPaterno.Text;
-                persona.capsapemat = TXTApellidoMaterno.Text;
-                persona.capsnomper = TXTNombres.Text;
-                persona.capsnumcel = TXTCelular.Text;
-                persona.capscorele = TXTCorreoElectronico.Text;
-                persona.capsdirper = TXTDireccion.Text;
+
+                persona.capsestper = SWB_Estado.Value;
+                persona.capssexper = SWB_Sexo.Value;
+                persona.capsfecnac = DTI_Nacimiento.Value;
+                persona.capsnumcid = TXT_CI.Text;
+                persona.capsapepat = TXT_ApellidoPaterno.Text;
+                persona.capsapemat = TXT_ApellidoMaterno.Text;
+                persona.capsnomper = TXT_Nombres.Text;
+                persona.capsnumcel = TXT_Celular.Text;
+                persona.capscorele = TXT_Correo.Text;
+                persona.capsdirper = TXT_Direccion.Text;
+                
+
+
                 //Fotografia del producto
                 if (TieneFoto)
                 {
-                    persona.capsfotper = MetodosGenerales.ConvertImageToBase64String(PCBFotografia.Image);
+                    persona.capsfotper = MetodosGenerales.ConvertImageToBase64String(PCB_Fotografía.Image);
                 }
                 else
                 {
                     persona.capsfotper = "";
                 }
+
+
+
 
                 if (!this.modificar)
                 {
@@ -369,19 +392,65 @@ namespace SistemaDeGestion2026
             }
         }
 
-        private void BTNAbrirFoto_Click(object sender, EventArgs e)
+        private void TXTCI_KeyDown(object sender, KeyEventArgs e)
         {
-            if (OFDElegirImagen.ShowDialog() == DialogResult.OK)
+            bool teclaValida = false;
+            //Identificar si es una tecla válida
+            if ((e.KeyCode >= Keys.NumPad0) && (e.KeyCode <= Keys.NumPad9))
+                teclaValida = true;
+            else if ((e.KeyCode >= Keys.D0) && (e.KeyCode <= Keys.D9) && !e.Shift)
+                teclaValida = true;
+            else if ((e.KeyCode >= Keys.A) && (e.KeyCode <= Keys.Z) && (!e.Alt))
+                teclaValida = true;
+            else if ((e.KeyCode == Keys.Subtract) ||
+                (e.KeyCode == Keys.Back) ||
+                (e.KeyCode == Keys.Delete) ||
+                (e.KeyCode == Keys.Left) ||
+                (e.KeyCode == Keys.Right) ||
+                ((e.KeyCode == Keys.OemMinus) && !e.Shift))
+                teclaValida = true;
+
+            if (!teclaValida)
             {
-                PCBFotografia.ImageLocation = OFDElegirImagen.FileName;
-                TieneFoto = true;
+                e.SuppressKeyPress = true;
             }
         }
 
+        private void TXTApellidoPaterno_KeyDown(object sender, KeyEventArgs e){
+            bool teclaValida = false;
+            //Identificar si es una tecla válida            
+            if ((e.KeyCode >= Keys.A) && (e.KeyCode <= Keys.Z) && (!e.Alt))
+                teclaValida = true;
+            else if ((e.KeyCode == Keys.Subtract) ||
+                (e.KeyCode == Keys.Back) ||
+                (e.KeyCode == Keys.Delete) ||
+                (e.KeyCode == Keys.Left) ||
+                (e.KeyCode == Keys.Right) ||
+                (e.KeyCode == Keys.Space) ||
+                ((e.KeyCode == Keys.OemMinus) && !e.Shift))
+                teclaValida = true;
+            if (!teclaValida)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
+
+
+        private void BTN_LimpiarFoto_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro que desea borrar la imagen?",
+                           "Pregunta",
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question,
+                           MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                TieneFoto = false;
+                PCB_Fotografía.Image = Resources.NoImagen;
+            }
+        }
         #endregion
 
-        #region Metodos para la Cámara
-        
+        #region Metodo para la Cámara
         private void DetectarCamaras()
         {
             CaptureDevice = new FilterInfoCollection(FilterCategory.VideoInputDevice);//constructor            
@@ -392,23 +461,20 @@ namespace SistemaDeGestion2026
         {
             try
             {
-                FinalFrame = new VideoCaptureDevice(CaptureDevice[1].MonikerString);// specified web cam and its filter moniker string
+                FinalFrame = new VideoCaptureDevice(CaptureDevice[0].MonikerString);// specified web cam and its filter moniker string
                 FinalFrame.NewFrame += new NewFrameEventHandler(FinalFrame_NewFrame);// click button event is fired, 
                 FinalFrame.Start();
             }
-            catch 
-            {
-                MessageBox.Show("No se tiene una cámara conectada al equipo",
-                    "Error de cámara",
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Error);
+            catch { 
+                MessageBox.Show("No se detectó ninguna cámara web en el sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         void FinalFrame_NewFrame(object sender, NewFrameEventArgs eventArgs) // must be void so that it can be accessed everywhere.
                                                                              // New Frame Event Args is an constructor of a class
         {
-            PCBCamara.Image = (Bitmap)eventArgs.Frame.Clone();// clone the bitmap
+            PCB_Camara.Image = (Bitmap)eventArgs.Frame.Clone();// clone the bitmap
+           
         }
 
         private void ApagarCamara()
@@ -416,27 +482,25 @@ namespace SistemaDeGestion2026
             if (FinalFrame.IsRunning == true) FinalFrame.Stop();
         }
 
-        #endregion
-
-        private void BTNLimpiarFoto_Click(object sender, EventArgs e)
+        private void BTN_CamaraCapturar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro que desea borrar la imagen?",
-                            "Pregunta",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question,
-                            MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                TieneFoto = false;
-                PCBFotografia.Image = Resources.NoImagen;
-            }
-        }
-
-        private void BTNCapturarFoto_Click(object sender, EventArgs e)
-        {
-            PCBFotografia.Image = PCBCamara.Image;
+            PCB_Fotografía.Image = PCB_Camara.Image;
             TieneFoto = true;
         }
 
-        
+        private void BTN_CamaraAbrir_Click(object sender, EventArgs e)
+        {
+            if (OFDElegirImagen.ShowDialog() == DialogResult.OK)
+            {
+                PCB_Fotografía.ImageLocation = OFDElegirImagen.FileName;
+                TieneFoto = true;
+            }
+        }
+        #endregion
+
+        private void PCB_Camara_LoadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,32 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SistemaDeGestion2026
+namespace Eithan_System
 {
     public partial class FRM_Splash : Form
-    {        
-        private bool bandera=false;
+    {
+        private bool bandera = false;
         public FRM_Splash()
         {
             InitializeComponent();
         }
 
-        private void FRMSplash_Load(object sender, EventArgs e)
+        private void FRM_Splash_Load(object sender, EventArgs e)
         {
-            TMRReloj.Enabled = true;
+            TMR_reloj1.Enabled = true;
         }
 
-        private void TMRReloj_Tick(object sender, EventArgs e)
+        private void TMR_reloj1_Tick(object sender, EventArgs e)
         {
             if (!bandera && this.Opacity < 1)
-            {            
+            {
                 this.Opacity += 0.05;
             }
             if (this.Opacity == 1)

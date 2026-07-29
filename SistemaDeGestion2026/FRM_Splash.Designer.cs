@@ -1,4 +1,4 @@
-﻿namespace SistemaDeGestion2026
+﻿namespace Eithan_System
 {
     partial class FRM_Splash
     {
@@ -30,32 +30,31 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_Splash));
-            this.TMRReloj = new System.Windows.Forms.Timer(this.components);
+            this.TMR_reloj1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // TMRReloj
+            // TMR_reloj1
             // 
-            this.TMRReloj.Tick += new System.EventHandler(this.TMRReloj_Tick);
+            this.TMR_reloj1.Tick += new System.EventHandler(this.TMR_reloj1_Tick);
             // 
-            // FRMSplash
+            // FRM_Splash
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(500, 300);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FRMSplash";
+            this.MaximumSize = new System.Drawing.Size(500, 300);
+            this.MinimumSize = new System.Drawing.Size(500, 300);
+            this.Name = "FRM_Splash";
             this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FRMSplash";
-            this.Load += new System.EventHandler(this.FRMSplash_Load);
+            this.Load += new System.EventHandler(this.FRM_Splash_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer TMRReloj;
+
+        private System.Windows.Forms.Timer TMR_reloj1;
     }
 }

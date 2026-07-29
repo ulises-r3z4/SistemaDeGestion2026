@@ -5,96 +5,92 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SistemaDeGestion2026
+namespace Eithan_System
 {
     public partial class FRM_Persona_Lista : DevComponents.DotNetBar.Office2007Form
     {
         #region Variables
-           private aperson persona = new aperson();
-           private List<aperson> lista_personas = new List<aperson>();
+        private aperson persona = new aperson();
+        private List<aperson> lista_personas = new List<aperson>();
         #endregion
-
         #region Constructor
+
         public FRM_Persona_Lista()
         {
             InitializeComponent();
         }
+       
         #endregion
 
-        #region Métodos
         private void ActualizarGrid()
         {
-            DTGLista.Rows.Clear();
+            DTG_Lista.Rows.Clear();
             lista_personas.Clear();
-            lista_personas = persona.Lista("capsnumcid like '%" + TXTFiltrar.Text + "%' or " +
-                                           "capsapepat like '%" + TXTFiltrar.Text + "%' or " +
-                                           "capsapemat like '%" + TXTFiltrar.Text + "%' or " +
-                                           "capsnomper like '%" + TXTFiltrar.Text + "%' limit " +
-                                           IINFilas.Value.ToString()
+          
+            lista_personas = persona.Lista("capsnumcid like '%" + TXT_Filtrar.Text + "%' or " +
+                                           "capsapepat like '%" + TXT_Filtrar.Text + "%' or " +
+                                           "capsapemat like '%" + TXT_Filtrar.Text + "%' or " +
+                                           "capsnomper like '%" + TXT_Filtrar.Text + "%' limit " +
+                                           IIN_Filas.Value.ToString()
                                            );
             foreach (aperson a in lista_personas)
             {
+                DTG_Lista.Rows.Add();
+
                 if (a.capsestper)
                 {
-                    DTGLista.Rows[DTGLista.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGreen;
+                    if (DTG_Lista.Rows.Count % 2 == 0) {
+                        DTG_Lista.Rows[DTG_Lista.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                    }
+                }
+                else {
+                    DTG_Lista.Rows[DTG_Lista.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Salmon;
+                }
+
+                DTG_Lista[0, DTG_Lista.Rows.Count - 1].Value = a.papscodper;
+                DTG_Lista[1, DTG_Lista.Rows.Count - 1].Value = a.capsestper;
+                DTG_Lista[2, DTG_Lista.Rows.Count - 1].Value = a.capsnumcid;
+                DTG_Lista[3, DTG_Lista.Rows.Count - 1].Value = a.capsapepat;
+                DTG_Lista[4, DTG_Lista.Rows.Count - 1].Value = a.capsapemat;
+                DTG_Lista[5, DTG_Lista.Rows.Count - 1].Value = a.capsnomper;
+                DTG_Lista[6, DTG_Lista.Rows.Count - 1].Value = a.capsfecnac;
+                if(a.capssexper)
+                {
+                    DTG_Lista[7, DTG_Lista.Rows.Count - 1].Value = "M";
                 }
                 else
                 {
-                    DTGLista.Rows[DTGLista.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Salmon;
+                    DTG_Lista[7, DTG_Lista.Rows.Count - 1].Value = "F";
                 }
-                DTGLista.Rows.Add();
-                DTGLista[0, DTGLista.Rows.Count - 1].Value = a.papscodper;
-                DTGLista[1, DTGLista.Rows.Count - 1].Value = a.capsestper;
-                DTGLista[2, DTGLista.Rows.Count - 1].Value = a.capsnumcid;
-                DTGLista[3, DTGLista.Rows.Count - 1].Value = a.capsapepat;
-                DTGLista[4, DTGLista.Rows.Count - 1].Value = a.capsapemat;
-                DTGLista[5, DTGLista.Rows.Count - 1].Value = a.capsnomper;
-                DTGLista[6, DTGLista.Rows.Count - 1].Value = a.capsfecnac;
-                if (a.capssexper)
-                {
-                    DTGLista[7, DTGLista.Rows.Count - 1].Value = "M";
-                }
-                else
-                {
-                    DTGLista[7, DTGLista.Rows.Count - 1].Value = "F";
-                }
-
-                DTGLista[8, DTGLista.Rows.Count - 1].Value = a.capsnumcel;
-
+                DTG_Lista[8, DTG_Lista.Rows.Count - 1].Value = a.capsnumcel;
             }
 
         }
-        #endregion
-
         #region Eventos
-        private void FRMPersona_Lista_Load(object sender, EventArgs e)
+        private void BTNNuevo_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
-            ActualizarGrid();
-        }
-
-        private void BTNRegistrar_Click(object sender, EventArgs e)
-        {
-            FRM_Persona_Registrar a = new FRM_Persona_Registrar();
-            a.ShowDialog();
-        }        
-
-        private void BTNReporte_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BTNModificar_Click(object sender, EventArgs e)
-        {
-            if (DTGLista.SelectedRows.Count > 0)
+            FRMPersona_Registrar F1 = new FRMPersona_Registrar();
+            F1.modificar = false;
+            F1.ShowDialog();
+            if (F1.actualizar)
             {
-                FRM_Persona_Registrar F1 = new FRM_Persona_Registrar();
+                ActualizarGrid();
+            }
+        }
+        
+
+        private void BTN_Modificar_Click(object sender, EventArgs e)
+        {
+            if (DTG_Lista.SelectedRows.Count > 0)
+            {
+                FRMPersona_Registrar F1 = new FRMPersona_Registrar();
                 F1.modificar = true;
-                F1.codPerMod = DTGLista[0, DTGLista.SelectedRows[0].Index].Value.ToString();
+                F1.codPerMod = DTG_Lista[0, DTG_Lista.SelectedRows[0].Index].Value.ToString();
                 F1.ShowDialog();
                 if (F1.actualizar)
                 {
@@ -102,16 +98,32 @@ namespace SistemaDeGestion2026
                 }
             }
         }
+        private void BTN_Registrar_Click(object sender, EventArgs e)
+        {
+            FRMPersona_Registrar a = new FRMPersona_Registrar();
+            a.ShowDialog();
+        }
+        private void TXT_Filtrar_Click(object sender, EventArgs e)
+        {
+            ActualizarGrid();
+        }
+        #endregion
 
-        private void DTGLista_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void FRM_Persona_Lista_Load_1(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            ActualizarGrid();
+        }
+
+        private void DTG_Lista_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                if (DTGLista.SelectedRows.Count > 0)
+                if (DTG_Lista.SelectedRows.Count > 0)
                 {
-                    FRM_Persona_Registrar F1 = new FRM_Persona_Registrar();
+                    FRMPersona_Registrar F1 = new FRMPersona_Registrar();
                     F1.modificar = true;
-                    F1.codPerMod = DTGLista[0, e.RowIndex].Value.ToString();
+                    F1.codPerMod = DTG_Lista[0, e.RowIndex].Value.ToString();
                     F1.ShowDialog();
                     if (F1.actualizar)
                     {
@@ -121,20 +133,13 @@ namespace SistemaDeGestion2026
             }
         }
 
-        private void BTNFiltrar_Click(object sender, EventArgs e)
+        private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ActualizarGrid();
-        }
-
-        #endregion
-
-        private void InhabilitarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (DTGLista.SelectedRows.Count > 0)
+            if (DTG_Lista.SelectedRows.Count > 0)
             {
-                FRM_Persona_Registrar F1 = new FRM_Persona_Registrar();
+                FRMPersona_Registrar F1 = new FRMPersona_Registrar();
                 F1.modificar = true;
-                F1.codPerMod = DTGLista[0, DTGLista.SelectedRows[0].Index].Value.ToString();
+                F1.codPerMod = DTG_Lista[0, DTG_Lista.SelectedRows[0].Index].Value.ToString();
                 F1.ShowDialog();
                 if (F1.actualizar)
                 {
@@ -143,64 +148,75 @@ namespace SistemaDeGestion2026
             }
         }
 
+        private void inhabilitarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DTG_Lista.SelectedRows.Count > 0)
+            {
+                persona.papscodper = DTG_Lista.SelectedRows[0].Cells[0].Value.ToString();
+                if (persona.ObtenerDatos()) {
+                    persona.capsestper = false;
+                    if (persona.Modificar()) {
+                        MessageBox.Show("Persona inhabilitada");
+                        ActualizarGrid();
+                    }
+                }
+            }
+        }
+
         private void habilitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DTGLista.SelectedRows.Count > 0)
+            if (DTG_Lista.SelectedRows.Count > 0)
             {
-                persona.papscodper = DTGLista.SelectedRows[0].Cells[0].Value.ToString();
-                if (persona.ObtenerDatos()){ 
-                    persona.capsestper = false;
-                    if (persona.Modificar())
-                    {
-                        MessageBox.Show("Persona Inhabilitada");
-                        ActualizarGrid();
-                    }
-                }
-            }
-        }
-
-        private void inhabilitarToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (DTGLista.SelectedRows.Count > 0)
-            {
-                persona.papscodper = DTGLista.SelectedRows[0].Cells[0].Value.ToString();
+                persona.papscodper = DTG_Lista.SelectedRows[0].Cells[0].Value.ToString();
                 if (persona.ObtenerDatos())
                 {
-                    persona.capsestper = false;
+                    persona.capsestper = true;
                     if (persona.Modificar())
                     {
-                        MessageBox.Show("Persona Inhabilitada");
+                        MessageBox.Show("Persona habilitada");
                         ActualizarGrid();
                     }
                 }
             }
         }
 
-        private void CMS_Menu_Opening(object sender, CancelEventArgs e)
+        private void CMSMenu_Opening(object sender, CancelEventArgs e)
         {
-            if (DTGLista.SelectedRows.Count > 0)
+            if (DTG_Lista.SelectedRows.Count > 0)
             {
-                persona.papscodper = DTGLista.SelectedRows[0].Cells[0].Value.ToString();
+                persona.papscodper = DTG_Lista.SelectedRows[0].Cells[0].Value.ToString();
                 if (persona.ObtenerDatos())
                 {
                     if (persona.capsestper)
                     {
-                        CMS_Menu.Items[1].Visible = true;
-                        CMS_Menu.Items[2].Visible = false;
-
+                        CMSMenu.Items[1].Visible = true;
+                        CMSMenu.Items[2].Visible = false;
                     }
                     else
                     {
-                        CMS_Menu.Items[1].Visible = false;
-                        CMS_Menu.Items[2].Visible = true;
+                        CMSMenu.Items[1].Visible = false;
+                        CMSMenu.Items[2].Visible = true;
                     }
                 }
             }
+            else {
+                e.Cancel = true;
+            }
         }
 
-        private void TXTFiltrar_Enter(object sender, EventArgs e)
+        private void BTN_Buscar_Click(object sender, EventArgs e)
         {
             ActualizarGrid();
+        }
+
+        private void TXT_Filtrar_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void TXT_Filtrar_Enter(object sender, EventArgs e)
+        {
+            TXT_Filtrar.SelectAll();
         }
     }
 }

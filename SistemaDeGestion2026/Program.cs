@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SistemaDeGestion2026
+namespace Eithan_System
 {
     internal static class Program
     {
@@ -16,7 +16,7 @@ namespace SistemaDeGestion2026
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FRMUsuario_Registrar());
+            Application.Run(new FRM_Principal());
         }
     }
 }

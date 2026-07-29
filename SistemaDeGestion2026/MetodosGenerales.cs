@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaDeGestion2026
+namespace Eithan_System
 {
     public static class MetodosGenerales
     {
