@@ -209,7 +209,7 @@ namespace Eithan_System
         #endregion
 
         #region Validación de Contraseñas
-        public static int Puntuar_Clave(string password)
+        public static int Puntuar_password(string password)
         {
             int num = 0;
 
@@ -232,7 +232,7 @@ namespace Eithan_System
             return num;
         }
 
-        public static void Validar_Clave(int num, LabelX label)
+        public static void Validar_password(int num, LabelX label)
         {
             
             switch (num)
