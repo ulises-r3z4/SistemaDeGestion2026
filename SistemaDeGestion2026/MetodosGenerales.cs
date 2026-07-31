@@ -209,25 +209,25 @@ namespace Eithan_System
         #endregion
 
         #region Validación de Contraseñas
-        public static int Puntuar_password(string password)
+        public static int Calcular_password(string password)
         {
             int num = 0;
 
             if (password.Length >= 8)
             {
-                num += 1;
+                num++;
             }
             if (password.Any(char.IsLower) || clave.Any(char.IsUpper) )
             {
-                num += 1;
+                num++;
             }
             if (password.Any(char.IsDigit))
             {
-                num += 1;
+                num++;
             }
             if (password.Any(ch => !char.IsLetterOrDigit(ch)))
             {
-                num += 1;
+                num++;
             }
             return num;
         }
