@@ -31,10 +31,10 @@ namespace SistemaDeGestion2026
         {
             DTGLista.Rows.Clear();
             lista_usuarios.Clear();
-            lista_usuarios = ausuario.Lista("capsnumcid like '%" + TXTFiltrar.Text + "%' or " +
-                                           "capsapepat like '%" + TXTFiltrar.Text + "%' or " +
-                                           "capsapemat like '%" + TXTFiltrar.Text + "%' or " +
-                                           "capsnomper like '%" + TXTFiltrar.Text + "%' limit " +
+            lista_usuarios = lusuario.Lista("(capsnumcid like '%" + TXTFiltrar.Text + "%' or " +
+                                             "capsapepat like '%" + TXTFiltrar.Text + "%' or " +
+                                             "capsapemat like '%" + TXTFiltrar.Text + "%' or " +
+                                             "capsnomper like '%" + TXTFiltrar.Text + "%') limit " +
                                            IINFilas.Value.ToString()
                                            );
             foreach (lususis a in lista_usuarios)
@@ -62,7 +62,7 @@ namespace SistemaDeGestion2026
         }
         #endregion
 
-
+        #region Eventos
         private void FRMUsuario_Lista_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
@@ -73,6 +73,15 @@ namespace SistemaDeGestion2026
         {
             FRMUsuario_Registrar a = new FRMUsuario_Registrar();
             a.ShowDialog();
+            if (a.actualizar)
+            {
+                ActualizarGrid();
+            }
+        }
+
+        private void BTNReporte_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void BTNModificar_Click(object sender, EventArgs e)
@@ -81,7 +90,7 @@ namespace SistemaDeGestion2026
             {
                 FRMUsuario_Registrar F1 = new FRMUsuario_Registrar();
                 F1.modificar = true;
-                F1.codPerMod = DTGLista[0, DTGLista.SelectedRows[0].Index].Value.ToString();
+                F1.codUsuMod = DTGLista[0, DTGLista.SelectedRows[0].Index].Value.ToString();
                 F1.ShowDialog();
                 if (F1.actualizar)
                 {
@@ -98,7 +107,7 @@ namespace SistemaDeGestion2026
                 {
                     FRMUsuario_Registrar F1 = new FRMUsuario_Registrar();
                     F1.modificar = true;
-                    F1.codPerMod = DTGLista[0, e.RowIndex].Value.ToString();
+                    F1.codUsuMod = DTGLista[0, e.RowIndex].Value.ToString();
                     F1.ShowDialog();
                     if (F1.actualizar)
                     {
@@ -130,21 +139,6 @@ namespace SistemaDeGestion2026
             }
         }
 
-        private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (DTGLista.SelectedRows.Count > 0)
-            {
-                FRMUsuario_Registrar F1 = new FRMUsuario_Registrar();
-                F1.modificar = true;
-                F1.codPerMod = DTGLista[0, DTGLista.SelectedRows[0].Index].Value.ToString();
-                F1.ShowDialog();
-                if (F1.actualizar)
-                {
-                    ActualizarGrid();
-                }
-            }
-        }
-
         private void habilitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DTGLista.SelectedRows.Count > 0)
@@ -155,7 +149,7 @@ namespace SistemaDeGestion2026
                     ausuario.causestusu = true;
                     if (ausuario.Modificar())
                     {
-                        MessageBox.Show("Usuario habilitada correctamente");
+                        MessageBox.Show("Usuario habilitado correctamente");
                         ActualizarGrid();
                     }
                 }
@@ -192,5 +186,7 @@ namespace SistemaDeGestion2026
         {
             TXTFiltrar.SelectAll();
         }
+
+        #endregion
     }
 }

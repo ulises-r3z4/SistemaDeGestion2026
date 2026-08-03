@@ -1,0 +1,16 @@
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.csproj.AssemblyReference.cache
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\Interop.DPFPCtlXLib.dll
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\AxInterop.DPFPCtlXLib.dll
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.csproj.ResolveComReference.cache
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMIniciar_Sesion.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMModificar_Password.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMPersona_Buscar.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMPersona_Lista.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMPersona_Registrar.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMPrincipal.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMSplash.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMUsuario_Lista.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.FRMUsuario_Registrar.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.Properties.Resources.resources
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.csproj.GenerateResource.cache
+C:\Users\Maquina07\Downloads\SistemaDeGestion2026-master\SistemaDeGestion2026\obj\Debug\SistemaDeGestion2026.csproj.CoreCompileInputs.cache

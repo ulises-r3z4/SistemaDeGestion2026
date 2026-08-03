@@ -1,6 +1,4 @@
-﻿using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -8,9 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace Eithan_System
+namespace SistemaDeGestion2026
 {
     public static class MetodosGenerales
     {
@@ -208,92 +205,60 @@ namespace Eithan_System
         }
         #endregion
 
-        #region Validación de Contraseñas
-        public static int Calcular_password(string password)
+        #region Validacion de contraseñas
+
+        public static int ValidarPassword(String password)
         {
-            int num = 0;
 
             if (password.Length >= 8)
             {
-                num++;
-            }
-            if (password.Any(char.IsLower) || clave.Any(char.IsUpper) )
-            {
-                num++;
-            }
-            if (password.Any(char.IsDigit))
-            {
-                num++;
-            }
-            if (password.Any(ch => !char.IsLetterOrDigit(ch)))
-            {
-                num++;
-            }
-            return num;
-        }
 
-        public static void Validar_password(int num, LabelX label)
-        {
-            
-            switch (num)
-            {
-                case 1:
-                    label.Text = "Seguridad de la contraseña: BAJA";
-                    label.ForeColor = ColorTranslator.FromHtml("#D32F2F");
-                    label.BackColor = ColorTranslator.FromHtml("#FFEBEE");
-                    label.BackgroundStyle.BorderColor = ColorTranslator.FromHtml("#D32F2F");
-                    break;
-                case 2:
-                    label.Text = "Seguridad de la contraseña: MEDIA";
-                    label.ForeColor = ColorTranslator.FromHtml("#E65100");
-                    label.BackColor = ColorTranslator.FromHtml("#FFF3E0");
-                    label.BackgroundStyle.BorderColor = ColorTranslator.FromHtml("#E65100");
-                    break;
-                case 3:
-                    label.Text = "Seguridad de la contraseña: FUERTE";
-                    label.ForeColor = ColorTranslator.FromHtml("#2E7D32");
-                    label.BackColor = ColorTranslator.FromHtml("#E8F5E9");
-                    label.BackgroundStyle.BorderColor = ColorTranslator.FromHtml("#2E7D32");
-                    break;
-                case 4:
-                    label.Text = "Seguridad de la contraseña: MUY FUERTE :D";
-                    label.ForeColor = ColorTranslator.FromHtml("#1565C0");
-                    label.BackColor = ColorTranslator.FromHtml("#E3F2FD");
-                    label.BackgroundStyle.BorderColor = ColorTranslator.FromHtml("#1565C0");
-                    break;
-            }
-        }
 
-        public static void Confirmar_pasword(string password, string c_password, LabelX label, ButtonX boton)
-        {
-            if (password == c_password)
-            {
-                if(clave.Length >= 8)
+                bool numero = password.Any(char.IsDigit);
+                bool mayuscula = password.Any(char.IsUpper);
+                bool minuscula = password.Any(char.IsLower);
+                bool caracterEspecial = password.Any(c => !char.IsLetterOrDigit(c));
+
+                int cont = 0;
+
+                bool[] vec = { numero, mayuscula, minuscula, caracterEspecial };
+
+                foreach (bool a in vec)
                 {
-                    label.Text = "Las contraseñas coinciden ☺";
-                    label.ForeColor = ColorTranslator.FromHtml("#2E7D32");
-                    label.BackColor = ColorTranslator.FromHtml("#E8F5E9");
-                    label.BackgroundStyle.BorderColor = ColorTranslator.FromHtml("#2E7D32");
-                    boton.Enabled = true;
+                    if (a)
+                    {
+                        cont++;
+                    }
+                }
+
+                if (cont == 4)
+                {
+                    return 3;
                 }
                 else
                 {
-                    label.Text = "La contraseña debe tener al menos 8 caracteres";
-                    label.ForeColor = ColorTranslator.FromHtml("#D32F2F");
-                    label.BackColor = ColorTranslator.FromHtml("#FFEBEE");
-                    label.BackgroundStyle.BorderColor = ColorTranslator.FromHtml("#D32F2F");
-                    boton.Enabled = false;
+                    if (cont >= 2)
+                    {
+                        return 2;
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 }
+
             }
             else
             {
-                label.Text = "Las contraseñas deben ser iguales ";
-                label.ForeColor = ColorTranslator.FromHtml("#D32F2F");
-                label.BackColor = ColorTranslator.FromHtml("#FFEBEE");
-                label.BackgroundStyle.BorderColor = ColorTranslator.FromHtml("#D32F2F");
-                boton.Enabled = false;
+                return 0;
             }
+
+
+
+
+
         }
+
         #endregion
     }
 }

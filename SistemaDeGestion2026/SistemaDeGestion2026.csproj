@@ -43,8 +43,42 @@
     <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
       <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
-    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.Design, Version=11.2.0.1, Culture=neutral, PublicKeyToken=2c9ff1fddc42653c, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.DotNetBar.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Keyboard, Version=11.2.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.DotNetBar.Keyboard.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Schedule, Version=11.2.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.DotNetBar.Schedule.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=11.2.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=11.2.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.Instrumentation, Version=11.2.0.1, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.Instrumentation.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.Instrumentation.Design, Version=11.2.0.1, Culture=neutral, PublicKeyToken=30cefae8f341f577, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.Instrumentation.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.SuperGrid.Design, Version=11.2.0.1, Culture=neutral, PublicKeyToken=1fea3f5d8d482bff, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.SuperGrid.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.TreeGX, Version=11.2.0.1, Culture=neutral, PublicKeyToken=cfcbd7476b2389d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\com.qiny.donetbar.1.0.0.1\lib\DevComponents.TreeGX.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPCtlXTypeLibNET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DPFPCtlXWrapperNET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7" />
+    <Reference Include="DPFPGuiNET, Version=1.3.0.0, Culture=neutral, PublicKeyToken=d4f4a0bd9c559145" />
+    <Reference Include="DPFPShrNET, Version=1.3.0.0, Culture=neutral, PublicKeyToken=d902fe275a8d6cf2" />
+    <Reference Include="DPFPShrXTypeLibNET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -59,6 +93,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FRMIniciar_Sesion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMIniciar_Sesion.Designer.cs">
+      <DependentUpon>FRMIniciar_Sesion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMModificar_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMModificar_Password.Designer.cs">
+      <DependentUpon>FRMModificar_Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMPersona_Buscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMPersona_Buscar.Designer.cs">
+      <DependentUpon>FRMPersona_Buscar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FRMPersona_Lista.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +150,15 @@
     <Compile Include="MetodosGenerales.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FRMIniciar_Sesion.resx">
+      <DependentUpon>FRMIniciar_Sesion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMModificar_Password.resx">
+      <DependentUpon>FRMModificar_Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMPersona_Buscar.resx">
+      <DependentUpon>FRMPersona_Buscar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FRMPersona_Lista.resx">
       <DependentUpon>FRMPersona_Lista.cs</DependentUpon>
     </EmbeddedResource>
@@ -227,6 +288,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ic_usuario_cambiar_password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_configurar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_salir_app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_iniciar_sesion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ip_actualizar_password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_cerrar_sesion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_mostrar_password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_ingresar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\DotNetBar Full\Parche\Manual %28Archivos .dll%29\DevComponents.DotNetBar2.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

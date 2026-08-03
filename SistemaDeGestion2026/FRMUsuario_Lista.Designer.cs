@@ -90,7 +90,7 @@
             this.DTGLista.DefaultCellStyle = dataGridViewCellStyle14;
             this.DTGLista.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DTGLista.EnableHeadersVisualStyles = false;
-            this.DTGLista.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(157)))));
+            this.DTGLista.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.DTGLista.Location = new System.Drawing.Point(94, 73);
             this.DTGLista.MultiSelect = false;
             this.DTGLista.Name = "DTGLista";
@@ -107,7 +107,7 @@
             this.DTGLista.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.DTGLista.RowTemplate.Height = 24;
             this.DTGLista.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DTGLista.Size = new System.Drawing.Size(757, 388);
+            this.DTGLista.Size = new System.Drawing.Size(843, 412);
             this.DTGLista.TabIndex = 17;
             this.DTGLista.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DTGLista_CellDoubleClick);
             // 
@@ -171,7 +171,7 @@
             this.EPNFiltrar.HideControlsWhenCollapsed = true;
             this.EPNFiltrar.Location = new System.Drawing.Point(94, 0);
             this.EPNFiltrar.Name = "EPNFiltrar";
-            this.EPNFiltrar.Size = new System.Drawing.Size(757, 73);
+            this.EPNFiltrar.Size = new System.Drawing.Size(843, 73);
             this.EPNFiltrar.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.EPNFiltrar.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.EPNFiltrar.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
@@ -213,7 +213,7 @@
             this.TXTFiltrar.Location = new System.Drawing.Point(93, 41);
             this.TXTFiltrar.Name = "TXTFiltrar";
             this.TXTFiltrar.PreventEnterBeep = true;
-            this.TXTFiltrar.Size = new System.Drawing.Size(196, 23);
+            this.TXTFiltrar.Size = new System.Drawing.Size(196, 26);
             this.TXTFiltrar.TabIndex = 5;
             this.TXTFiltrar.WatermarkText = "Datos a buscar...";
             this.TXTFiltrar.Enter += new System.EventHandler(this.TXTFiltrar_Enter);
@@ -232,7 +232,7 @@
             this.IINFilas.MinValue = 0;
             this.IINFilas.Name = "IINFilas";
             this.IINFilas.ShowUpDown = true;
-            this.IINFilas.Size = new System.Drawing.Size(80, 23);
+            this.IINFilas.Size = new System.Drawing.Size(80, 26);
             this.IINFilas.TabIndex = 4;
             this.IINFilas.Value = 50;
             // 
@@ -251,7 +251,7 @@
             this.EPNOpciones.Location = new System.Drawing.Point(0, 0);
             this.EPNOpciones.Margin = new System.Windows.Forms.Padding(4);
             this.EPNOpciones.Name = "EPNOpciones";
-            this.EPNOpciones.Size = new System.Drawing.Size(94, 461);
+            this.EPNOpciones.Size = new System.Drawing.Size(94, 485);
             this.EPNOpciones.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.EPNOpciones.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.EPNOpciones.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
@@ -296,6 +296,7 @@
             this.BTNReporte.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.BTNReporte.TabIndex = 6;
             this.BTNReporte.Text = "&Reporte";
+            this.BTNReporte.Click += new System.EventHandler(this.BTNReporte_Click);
             // 
             // BTNModificar
             // 
@@ -337,35 +338,34 @@
             this.eliminarToolStripMenuItem,
             this.habilitarToolStripMenuItem});
             this.CMSMenu.Name = "CMSMenu";
-            this.CMSMenu.Size = new System.Drawing.Size(128, 70);
+            this.CMSMenu.Size = new System.Drawing.Size(146, 76);
             this.CMSMenu.Opening += new System.ComponentModel.CancelEventHandler(this.CMSMenu_Opening);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
             this.modificarToolStripMenuItem.Text = "&Modificar";
-            this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
             // 
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
             this.eliminarToolStripMenuItem.Text = "&Inhabilitar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // habilitarToolStripMenuItem
             // 
             this.habilitarToolStripMenuItem.Name = "habilitarToolStripMenuItem";
-            this.habilitarToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.habilitarToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
             this.habilitarToolStripMenuItem.Text = "&Habilitar";
             this.habilitarToolStripMenuItem.Click += new System.EventHandler(this.habilitarToolStripMenuItem_Click);
             // 
             // FRMUsuario_Lista
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(851, 461);
+            this.ClientSize = new System.Drawing.Size(937, 485);
             this.Controls.Add(this.DTGLista);
             this.Controls.Add(this.EPNFiltrar);
             this.Controls.Add(this.EPNOpciones);

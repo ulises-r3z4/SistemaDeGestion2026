@@ -34,5 +34,34 @@ namespace SistemaDeGestion2026
             a.MdiParent = this;
             a.Show();
         }
+
+        private void BTNUsuarios_Click(object sender, EventArgs e)
+        {
+            foreach (Form s in this.MdiChildren)
+            {
+                s.Close();
+            }
+            FRMUsuario_Lista a = new FRMUsuario_Lista();
+            a.MdiParent = this;
+            a.Show();
+        }
+
+        private void BTNLogin_Click(object sender, EventArgs e)
+        {
+            FRMIniciar_Sesion a = new FRMIniciar_Sesion();            
+            a.ShowDialog();
+            if (a.actualizarPassword)
+            {
+                FRMModificar_Password b = new FRMModificar_Password();
+                b.usuario = a.usuario;
+                b.persona = a.persona;
+                b.ShowDialog();
+            }
+            if (a.loginExitoso)
+            {
+                //Cambiar el estado del formulario principal
+            }
+
+        }
     }
 }
